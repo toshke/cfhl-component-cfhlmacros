@@ -1,0 +1,12 @@
+lambdas:
+  roles:
+    default:
+      policies_inline:
+        - cloudwatch-logs
+  functions:
+    cfhlmacros:
+      role: default
+      code: src/macros
+      runtime: python3.6
+      timeout: 60
+      handler: index.lambda_handler
