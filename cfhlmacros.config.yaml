@@ -10,3 +10,5 @@ lambdas:
       runtime: python3.6
       timeout: 60
       handler: index.lambda_handler
+      environment:
+        PYTHONPATH: /var/task
