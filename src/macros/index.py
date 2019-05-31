@@ -42,7 +42,7 @@ def lambda_handler(event, context):
     template = event['fragment']
     parameters = event['templateParameterValues']
 
-    traverse(template, parameters, methods.replace_subnets)
+    traverse(template, parameters, methods.replace_network)
 
     return {
         'requestId': event['requestId'],

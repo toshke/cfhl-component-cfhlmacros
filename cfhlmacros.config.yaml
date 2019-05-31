@@ -1,8 +1,17 @@
 lambdas:
+  custom_policies:
+    describe-vpcs:
+      action:
+        - ec2:DescribeVpcs
+    describe-subnets:
+      action:
+        - ec2:DescribeSubnets
   roles:
     default:
       policies_inline:
         - cloudwatch-logs
+        - describe-vpcs
+        - describe-subnets
   functions:
     cfhlmacros:
       role: default
@@ -10,5 +19,3 @@ lambdas:
       runtime: python3.6
       timeout: 60
       handler: index.lambda_handler
-      environment:
-        PYTHONPATH: /var/task

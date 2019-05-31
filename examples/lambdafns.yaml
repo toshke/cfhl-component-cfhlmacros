@@ -1,0 +1,35 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: ['AWS::Serverless-2016-10-31', 'CfHighlander_Networking']
+
+Globals:
+  Function:
+    VpcConfig:
+      SubnetIds: CfHl.Subnets.Compute
+      SecurityGroupIds: [!Ref SecurityGroup]
+Parameters:
+  # EnvironmentName is mandatory parameter to use with CfHighlander_Networking
+  # macro, as all networking elements are prefixed with EnvironmentName
+  EnvironmentName:
+    Type: String
+    Default: dev
+
+Resources:
+  IAMRole:
+    
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 'CfHl Macros Demo template SG'
+      VpcId: CfHl.Vpc.Id
+  Func1:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python3.7
+      FunctionName: DemoCfhighlanderMacros
+      Handler: index.handler
+      InlineCode: |
+        import os
+        def index(event, context):
+          print(f"ComputeSubnets: {os.environ['COMPUTE_SUBNETS']}")
+          return 'Hello World!!'
